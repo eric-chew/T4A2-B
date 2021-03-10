@@ -8,16 +8,21 @@ from flask_login import login_required, current_user
 
 feedbacks = Blueprint('feedbacks', __name__, url_prefix='/feedback')
 
-@feedbacks.route('/', methods=['POST'])
+@feedbacks.route('/project/<int:id>', methods=['POST'])
 @login_required
-def feedback_create():
-    project = Project.query.filter_by(user_id=current_user.id).first()
+def feedback_create(id):
+    project = Project.query.filter_by(id=id).first()
     
-    if not project:
-        return abort(400, description="Can't give feedback without a project!")
+    feedback = Feedback.query.filter_by(id=project.user_id).first()
+    
+    if feedback:
+        return abort(400, description='Already given feedback in this project')
+    
+    if project.user_id == current_user.id:
+        return abort(400, description='Cannot give feedback on your own project')
     
     new_feedback = Feedback()
-    new_feedback.text = request.form.get("text")
+    new_feedback.text = request.form.get('text')
     new_feedback.user_id = current_user.id
     new_feedback.project_id = project.id
 

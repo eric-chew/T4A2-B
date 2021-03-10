@@ -1,6 +1,7 @@
 from main import ma
 from models.Feedback import Feedback
 from schemas.ProjectSchema import ProjectSchema
+from schemas.UserSchema import UserSchema
 from marshmallow.validate import Length
 
 class FeedbackSchema(ma.SQLAlchemyAutoSchema):

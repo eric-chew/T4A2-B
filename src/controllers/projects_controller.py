@@ -7,7 +7,7 @@ from schemas.FeedbackSchema import feedback_schema, feedbacks_schema
 from flask import Blueprint, request, jsonify, render_template, abort, redirect, url_for
 from flask_login import login_required, current_user
 
-projects = Blueprint('projects', __name__, url_prefix='projects')
+projects = Blueprint('projects', __name__, url_prefix='/projects')
 
 @projects.route('/', methods=['GET'])
 def project_index():

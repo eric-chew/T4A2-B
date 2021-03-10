@@ -5,10 +5,10 @@ class Config(object):
 
     @property
     def SQLALCHEMY_DATABASE_URI(self):
-        value = os.environ.get("DB_URI")
+        value = os.environ.get('DB_URI')
 
         if not value:
-            raise ValueError("DB_URI is not set")
+            raise ValueError('DB_URI is not set')
 
         return value
     
@@ -16,7 +16,7 @@ class Config(object):
     def AWS_ACCESS_KEY_ID(self):
         value = os.getenv('AWS_ACCESS_KEY_ID')
         if not value:
-            raise ValueError("AWS_ACCESS_KEY_ID is not set")
+            raise ValueError('AWS_ACCESS_KEY_ID is not set')
         return value
 
     @property
@@ -24,7 +24,7 @@ class Config(object):
         value = os.getenv('AWS_SECRET_ACCESS_KEY')
 
         if not value:
-            raise ValueError("AWS_SECRET_ACCESS_KEY is not set")
+            raise ValueError('AWS_SECRET_ACCESS_KEY is not set')
         return value
 
 class DevelopmentConfig(Config):
@@ -32,20 +32,20 @@ class DevelopmentConfig(Config):
     
     @property
     def SQLALCHEMY_DATABASE_URI(self):
-        value = os.environ.get("DB_URI_TEST")
+        value = os.environ.get('DB_URI_DEV')
 
         if not value:
-            raise ValueError("DB_URI_TEST is not set")
+            raise ValueError('DB_URI_DEV is not set')
 
         return value
 
 class ProductionConfig(Config):
     @property
     def SECRET_KEY(self):
-        value = os.environ.get("SECRET_KEY")
+        value = os.environ.get('SECRET_KEY')
 
         if not value:
-            raise ValueError("Secret Key is not set")
+            raise ValueError('SECRET_KEY is not set')
 
         return value
 
@@ -54,18 +54,18 @@ class TestingConfig(Config):
     
     @property
     def SQLALCHEMY_DATABASE_URI(self):
-        value = os.environ.get("DB_URI_TEST")
+        value = os.environ.get('DB_URI_TEST')
 
         if not value:
-            raise ValueError("DB_URI_TEST is not set")
+            raise ValueError('DB_URI_TEST is not set')
 
         return value
 
-environment = os.environ.get("FLASK_ENV")
+environment = os.environ.get('FLASK_ENV')
 
-if environment == "production":
+if environment == 'production':
     app_config = ProductionConfig()
-elif environment == "testing":
+elif environment == 'testing':
     app_config = TestingConfig()
 else:
     app_config = DevelopmentConfig()
