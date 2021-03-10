@@ -10,4 +10,4 @@ class FeedbackSchema(ma.SQLAlchemyAutoSchema):
     user =  ma.Nested(UserSchema)
 
 feedback_schema = FeedbackSchema()
-feedback_schemas = FeedbackSchema(many=True)
+feedbacks_schema = FeedbackSchema(many=True)
