@@ -12,6 +12,7 @@ projects = Blueprint('projects', __name__, url_prefix='projects')
 @projects.route('/', methods=['GET'])
 def project_index():
     projects = Project.query.all()
+    
     return jsonify(projects_schema.dump(projects))
 
 @projects.route('/', methods=['POST'])
@@ -35,7 +36,15 @@ def project_create():
 @projects.route('/<int:id>', methods=['GET'])
 def project_show(id):
     project = Project.query.get(id)
-    return jsonify(project__schema.dump(project))
+    
+    return jsonify(project_schema.dump(project))
+
+@projects.route('/my_projects', methods=['GET'])
+@login_required
+def project_show_user():
+    projects = Project.query.filter_by(user_id=current_user.id)
+    
+    return jsonify(projects_schema.dump(projects))
 
 @projects.route('/<int:id>', methods=['DELETE'])
 @login_required
@@ -47,6 +56,7 @@ def project_delete(id):
     
     db.session.delete(project)
     db.session.commit()
+    
     return jsonify(project_schema.dump(project))
     
 @projects.route('/<int:id>', methods=['PUT', 'PATCH'])
