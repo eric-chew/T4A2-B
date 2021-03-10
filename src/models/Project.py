@@ -13,3 +13,8 @@ class Project(db.Model):
         backref="project",
         cascade="all, delete"
     )
+    tags = db.relationship(
+        "Tag",
+        backref="project",
+        cascade="all, delete"
+    )

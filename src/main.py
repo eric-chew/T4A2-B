@@ -8,7 +8,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
 db = SQLAlchemy()
-mar = Marshmallow()
+ma = Marshmallow()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 
@@ -17,7 +17,7 @@ def create_app():
     app.config.from_object("default_settings.app_config")
 
     db.init_app(app)
-    mar.init_app(app)
+    ma.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
     login_manager.login_view = "auth.login"
