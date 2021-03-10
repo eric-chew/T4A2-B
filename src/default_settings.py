@@ -26,6 +26,15 @@ class Config(object):
         if not value:
             raise ValueError('AWS_SECRET_ACCESS_KEY is not set')
         return value
+    
+    @property
+    def SECRET_KEY(self):
+        value = os.environ.get('SECRET_KEY')
+
+        if not value:
+            raise ValueError('SECRET_KEY is not set')
+
+        return value
 
 class DevelopmentConfig(Config):
     DEBUG = True

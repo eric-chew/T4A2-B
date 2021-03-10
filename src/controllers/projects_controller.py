@@ -47,9 +47,11 @@ def project_show_user():
     return jsonify(projects_schema.dump(projects))
 
 @projects.route('/<int:id>', methods=['DELETE'])
-@login_required
+# @login_required
 def project_delete(id):
-    project = Project.query.filter_by(id=id, user_id=current_user.id).first()
+    # project = Project.query.filter_by(id=id, user_id=current_user.id).first()
+    
+    project = Project.query.filter_by(id=id, user_id=1).first()
     
     if not project:
         return abort(400, description='Unauthorised to delete this project')
