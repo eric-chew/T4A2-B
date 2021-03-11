@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block title %}Name{% endblock %}
+
+{% block content%}        
+    <h3>{{project.name}}</h3>
+    <h4>Link: {{project.link}}</h4>
+    <h4>Description: {{project.description}}</h4>
+    {% if current_user.is_authenticated and current_user.id != project.user.id %}
+        <a href="{{ url_for('feedbacks.feedback_create', id=project.id) }}"><button>Give Feedback</button></a>
+    {% endif%}
+    {% if current_user.is_authenticated and current_user.id == project.user.id %}
+        <a href="{{ url_for('project.project_update', id=project.id) }}"><button>Update Project</button></a>
+        <a href="{{ url_for('project.project_delete', id=project.id) }}"><button>Delete Project</button></a>
+        <a href="/projects/my_projects"><button>Back to my Projects</button></a>
+    {% endif%}
+    <a href="/projects"><button>Back to all Projects</button></a>
+{% endblock %}

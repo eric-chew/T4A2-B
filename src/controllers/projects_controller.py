@@ -33,7 +33,7 @@ def project_create():
 
     flash('Project Created!')
     # return jsonify(project_schema.dump(new_project))
-    return render_template("project.html", project=new_project)
+    return redirect(url_for('projects.project_show', id=new_project.id))
 
 
 @projects.route('/<int:id>', methods=['GET'])
@@ -50,22 +50,25 @@ def project_show_user():
     projects = Project.query.filter_by(user_id=current_user.id)
 
     # return jsonify(projects_schema.dump(projects))
-    return render_template("projects_index.html", projects=projects)
+    return render_template("projects_user.html", projects=projects)
 
 
-@projects.route('/<int:id>', methods=['DELETE'])
+# @projects.route('/<int:id>', methods=['DELETE'])
+@projects.route("/delete/<int:id>", methods=['GET'])
 @login_required
 def project_delete(id):
     project = Project.query.filter_by(id=id, user_id=current_user.id).first()
     project = Project.query.filter_by(id=id, user_id=1).first()
 
     if not project:
-        return abort(400, description='Unauthorised to delete this project')
+        flash('Unauthorised to delete this project')
+        return redirect(url_for('projects.project_show', id=id))
 
     db.session.delete(project)
     db.session.commit()
 
-    return jsonify({'msg': 'Project Deleted'})
+    flash('Project Deleted')
+    return redirect(url_for('projects.project_show_user'))
 
 
 @projects.route('/<int:id>', methods=['PUT', 'PATCH'])
