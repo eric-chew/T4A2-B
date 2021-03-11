@@ -7,7 +7,13 @@
     </head>
     <body>
         <header>
-            <h1>Project-Feedback App</h1>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for msg in messages %}
+                        <h2>{{msg}}</h2>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
             <nav>
                 <a href="/projects">All Projects</a>
                 {% if current_user.is_authenticated %}
@@ -21,7 +27,7 @@
             </nav>
         </header>
         <div>
-            {% block content%}        
+            {% block content %}        
 
 
             {% endblock %}

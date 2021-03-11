@@ -28,7 +28,7 @@ def seed_db():
         user.username = f'user{i+1}'
         user.email = f'user{i+1}@domain.com'
         user.password = bcrypt.generate_password_hash(
-            f'password{i}'
+            f'password{i+1}'
         ).decode('utf-8')
         db.session.add(user)
 

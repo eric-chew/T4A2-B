@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+{% block title %}Signup Page{% endblock %}
+
+{% block content %}
+    <div>
+        <h3>Sign up</h3>
+        <div>
+            <form action="{{ url_for('auth.auth_register') }}" method='POST'>
+                <input type='text' name='username' placeholder='Username' autofocus=''>
+                <input type='password' name='password' placeholder='Password'>
+                <button>Sign up</button>
+            </form>
+        </div>
+        <a href='projects_index.html'><button>Go Back</button></a>
+    </div>
+{% endblock %}

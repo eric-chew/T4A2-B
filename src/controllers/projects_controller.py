@@ -1,8 +1,7 @@
 from models.Project import Project
 from main import db
 from schemas.ProjectSchema import project_schema, projects_schema
-from flask import Blueprint, request, jsonify, render_template, abort, redirect, url_for
-# from flask import Blueprint, request, render_template, abort, redirect,url_for
+from flask import Blueprint, request, jsonify, render_template, abort, redirect, url_for, flash
 from flask_login import login_required, current_user
 
 projects = Blueprint('projects', __name__, url_prefix='/projects')
@@ -32,14 +31,17 @@ def project_create():
     db.session.add(new_project)
     db.session.commit()
 
-    return jsonify(project_schema.dump(new_project))
+    flash('Project Created!')
+    # return jsonify(project_schema.dump(new_project))
+    return render_template("project.html", project=new_project)
 
 
 @projects.route('/<int:id>', methods=['GET'])
 def project_show(id):
     project = Project.query.get(id)
 
-    return jsonify(project_schema.dump(project))
+    # return jsonify(project_schema.dump(project))
+    return render_template("project.html", project=project)
 
 
 @projects.route('/my_projects', methods=['GET'])
@@ -47,7 +49,8 @@ def project_show(id):
 def project_show_user():
     projects = Project.query.filter_by(user_id=current_user.id)
 
-    return jsonify(projects_schema.dump(projects))
+    # return jsonify(projects_schema.dump(projects))
+    return render_template("projects_index.html", projects=projects)
 
 
 @projects.route('/<int:id>', methods=['DELETE'])

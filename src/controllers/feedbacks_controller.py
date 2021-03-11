@@ -2,8 +2,7 @@ from models.Feedback import Feedback
 from models.Project import Project
 from main import db
 from schemas.FeedbackSchema import feedback_schema
-from flask import Blueprint, request, jsonify, render_template, abort, redirect, url_for
-# from flask import Blueprint, request, render_template, abort, redirect, url_for
+from flask import Blueprint, request, jsonify, render_template, abort, redirect, url_for, flash
 from flask_login import login_required, current_user
 
 feedbacks = Blueprint('feedbacks', __name__, url_prefix='/feedback')
