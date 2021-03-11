@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block title %}Update Project{% endblock %}
+
+{% block content %}
+    <div>
+        <h3>Update Project</h3>
+        <div>
+            <form action="{{ url_for('projects.project_update') }}" method="POST">
+                <input type="text" name="name" placeholder="Name" autofocus="">
+                <input type="text" name="link" placeholder="Link">
+                <input type="text" name="description" placeholder="Description">
+                <button>Update Project</button>
+            </form>
+            <a href="{{ url_for('projects.project_show_user') }}"><button>Back to your Projects</button></a>
+        </div>
+    </div>
+{% endblock %}

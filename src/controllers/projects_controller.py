@@ -58,7 +58,6 @@ def project_show_user():
 @login_required
 def project_delete(id):
     project = Project.query.filter_by(id=id, user_id=current_user.id).first()
-    project = Project.query.filter_by(id=id, user_id=1).first()
 
     if not project:
         flash('Unauthorised to delete this project')
@@ -71,13 +70,15 @@ def project_delete(id):
     return redirect(url_for('projects.project_show_user'))
 
 
-@projects.route('/<int:id>', methods=['PUT', 'PATCH'])
+# @projects.route('/<int:id>', methods=['PUT', 'PATCH'])
+@projects.route("/update/<int:id>", methods=['GET'])
 @login_required
 def project_update(id):
     project = Project.query.filter_by(id=id, user_id=current_user.id).first()
 
     if not project:
-        return abort(400, description='Unauthorised to update this project')
+        flash('Unauthorised to update this project')
+        return redirect(url_for('projects.project_show', id=id))
 
     project.name = request.form.get('name')
     project.link = request.form.get('link')
@@ -85,4 +86,16 @@ def project_update(id):
 
     db.session.commit()
 
-    return jsonify(project_schema.dump(project))
+    # return jsonify(project_schema.dump(project))
+    return redirect(url_for('projects.project_show', id=id))
+
+
+@projects.route("/new", methods=["GET"])
+def new_project():
+    return render_template("new_project.html")
+
+
+@projects.route("/revise/<int:id>", methods=["GET"])
+def revise_project(id):
+    project = Project.query.get(id)
+    return render_template("revise_project.html", project=project)
