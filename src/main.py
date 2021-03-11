@@ -1,16 +1,17 @@
 from dotenv import load_dotenv
-load_dotenv()
-
-from flask import Flask 
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
+load_dotenv()
+
 db = SQLAlchemy()
 ma = Marshmallow()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
+
 
 def create_app():
     app = Flask(__name__)
@@ -35,5 +36,5 @@ def create_app():
 
     for controller in registerable_controllers:
         app.register_blueprint(controller)
-    
+
     return app

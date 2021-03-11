@@ -1,5 +1,6 @@
 import os
 
+
 class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
@@ -11,7 +12,7 @@ class Config(object):
             raise ValueError('DB_URI is not set')
 
         return value
-    
+
     @property
     def AWS_ACCESS_KEY_ID(self):
         value = os.getenv('AWS_ACCESS_KEY_ID')
@@ -26,7 +27,7 @@ class Config(object):
         if not value:
             raise ValueError('AWS_SECRET_ACCESS_KEY is not set')
         return value
-    
+
     @property
     def SECRET_KEY(self):
         value = os.environ.get('SECRET_KEY')
@@ -36,9 +37,10 @@ class Config(object):
 
         return value
 
+
 class DevelopmentConfig(Config):
     DEBUG = True
-    
+
     @property
     def SQLALCHEMY_DATABASE_URI(self):
         value = os.environ.get('DB_URI_DEV')
@@ -47,6 +49,7 @@ class DevelopmentConfig(Config):
             raise ValueError('DB_URI_DEV is not set')
 
         return value
+
 
 class ProductionConfig(Config):
     @property
@@ -58,9 +61,10 @@ class ProductionConfig(Config):
 
         return value
 
+
 class TestingConfig(Config):
     TESTING = True
-    
+
     @property
     def SQLALCHEMY_DATABASE_URI(self):
         value = os.environ.get('DB_URI_TEST')
@@ -69,6 +73,7 @@ class TestingConfig(Config):
             raise ValueError('DB_URI_TEST is not set')
 
         return value
+
 
 environment = os.environ.get('FLASK_ENV')
 
