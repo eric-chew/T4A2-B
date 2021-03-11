@@ -87,9 +87,9 @@ def feedback_update(id):
     return redirect(url_for('feedbacks.feedback_show', id=id))
 
 
-@feedbacks.route("/new", methods=["GET"])
-def new_feedback():
-    return render_template("new_feedback.html")
+@feedbacks.route("/new/<int:id>", methods=["GET"])
+def new_feedback(id):
+    return render_template("new_feedback.html", id=id)
 
 
 @feedbacks.route("/revise/<int:id>", methods=["GET"])

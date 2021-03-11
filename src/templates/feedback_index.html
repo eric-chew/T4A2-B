@@ -1,34 +1,25 @@
 {% extends "layout.html" %}
 
 {% block content%}
-    {% if feedbacks %}
-        <div class="card text-center text-dark bg-light mb-3 border-dark mb-3">
-            <div class="card-body">
-                <h1 class="card-title">Feedback for {{project_name}}</h1>
-            </div>
+    <div class="card text-center text-dark bg-light mb-3 border-dark mb-3">
+        <div class="card-body">
+            <h1 class="card-title">Feedback for {{project_name}}</h1>
         </div>
-        {% for feedback in feedbacks %}
-            <div class="card text-center border-dark mb-3">
-                <div class="card-header">
-                    By {{feedback.user.username}}
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{feedback.project.name}}</h5>
-                    <p class="card-text">{{feedback.text}}</p>
-                </div>
-                <div class="card-footer text-muted">
-                    Last updated: {{feedback.last_updated.strftime('%Y-%m-%d %H:%M')}}
-                </div>
-                <a href="{{ url_for('feedbacks.feedback_show', id=feedback.id) }}" class="btn btn-primary">More...</a>
-            </div>
-        {% endfor %}
-    {% else %}
+    </div>
+    {% for feedback in feedbacks %}
         <div class="card text-center border-dark mb-3">
-            <div class="card-body">
-                <h1 class="card-title">This Project has no feedback yet</h1>
-                <p class="card-text">Be the first!</p>
+            <div class="card-header">
+                By {{feedback.user.username}}
             </div>
-            <a href="{{ url_for('feedbacks.feedback_create', id=project_id) }}" class="btn btn-primary">Give Feedback</a>
+            <div class="card-body">
+                <h5 class="card-title">{{feedback.project.name}}</h5>
+                <p class="card-text">{{feedback.text}}</p>
+            </div>
+            <div class="card-footer text-muted">
+                Last updated: {{feedback.last_updated.strftime('%Y-%m-%d %H:%M')}}
+            </div>
+            <a href="{{ url_for('feedbacks.feedback_show', id=feedback.id) }}" class="btn btn-primary">More...</a>
         </div>
-    {% endif %}
+    {% endfor %}
+    <a href="{{ url_for('feedbacks.new_feedback', id=project_id) }}" class="btn btn-primary">Give Feedback</a>
 {% endblock %}

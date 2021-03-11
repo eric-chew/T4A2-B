@@ -11,7 +11,7 @@
             <p class="card-text">{{project.description}}</p>
             <a href="{{ url_for('feedbacks.feedback_show_project', id=project.id) }}" class="btn btn-primary">View Feedback</a>
             {% if current_user.is_authenticated and current_user.id != project.user.id %}
-                <a href="{{ url_for('feedbacks.feedback_create', id=project.id) }}" class="btn btn-primary">Give Feedback</a>
+                <a href="{{ url_for('feedbacks.new_feedback', id=id) }}" class="btn btn-primary">Give Feedback</a>
             {% endif%}
             {% if current_user.is_authenticated and current_user.id == project.user.id %}
                 <a href="{{ url_for('projects.revise_project', id=project.id) }}" class="btn btn-primary">Update Project</a>
