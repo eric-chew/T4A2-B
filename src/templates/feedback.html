@@ -1,9 +1,27 @@
 {% extends "layout.html" %}
-{% block title %}Feedback from {{feedback.user.name}}{% endblock %}
 
 {% block content%}
-    <h3>Author: {{feedback.user.name}}</h3>
-    <h4>Last updated: {{feedback.last_updated.strftime('%Y-%m-%d %H:%M')}}</h4>
-    <p>{{feedback.text}}</p>
-    <a href="{{ url_for('feedbacks.feedback_show_project', id=feedback.project_id) }}">More Feedback</a>
+    {% if feedback %}
+        <div class="card text-center border-dark mb-3">
+            <div class="card-header">
+                By {{feedback.user.username}}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{feedback.project.name}}</h5>
+                <p class="card-text">{{feedback.text}}</p>
+                <a href="{{ url_for('projects.project_show', id=feedback.project.id) }}" class="btn btn-primary">See this Project</a>
+            </div>
+            <div class="card-footer text-muted">
+                Last updated: {{feedback.last_updated.strftime('%Y-%m-%d %H:%M')}}
+            </div>
+            <a href="{{ url_for('feedbacks.feedback_show_project', id=feedback.project_id) }}" class="btn btn-primary">More Feedback</a>
+        </div>
+    {% else %}
+        <div class="card text-center border-dark mb-3">
+            <div class="card-body">
+                <h5 class="card-title">This Project has been removed</h5>
+                <a href="{{ url_for('projects.project_index') }}" class="btn btn-primary">Return</a>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

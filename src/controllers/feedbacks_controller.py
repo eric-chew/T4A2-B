@@ -49,7 +49,7 @@ def feedback_show_project(id):
     project = Project.query.get(id)
 
     # return jsonify(feedbacks_schema.dump(feedback))
-    return render_template("feedback_index.html", feedbacks=feedbacks, project_name=project.name)
+    return render_template("feedback_index.html", feedbacks=feedbacks, project_name=project.name, project_id=id)
 
 
 # @feedbacks.route('/<int:id>', methods=['DELETE'])

@@ -1,16 +1,29 @@
 {% extends 'layout.html' %}
-{% block title %}Signup Page{% endblock %}
 
 {% block content %}
+    <div class="card text-center text-dark bg-light mb-3 border-dark mb-3">
+        <div class="card-body">
+            <h1 class="card-title">Sign Up</h1>
+        </div>
+    </div>
     <div>
-        <h3>Sign up</h3>
         <div>
             <form action="{{ url_for('auth.auth_register') }}" method='POST'>
-                <input type='text' name='username' placeholder='Username' autofocus=''>
-                <input type='password' name='password' placeholder='Password'>
-                <button>Sign up</button>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type='text' class="form-control" name='username' id='username' placeholder='Username' autofocus=''>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type='email' class="form-control" name='email' id='email' placeholder='name@domain.com'>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" name='password' id="password">
+                </div>
+                <button type="submit" class="btn btn-primary">Sign up</button>
+                <a href="{{ url_for('auth.main_page') }}"><buttontype="button" class="btn btn-success">Go Back</button></a>
             </form>
         </div>
-        <a href='projects_index.html'><button>Go Back</button></a>
     </div>
 {% endblock %}
