@@ -61,31 +61,26 @@ def seed_db():
 
     feedback1 = Feedback()
     feedback1.text = 'Acceptable'
-    feedback1.user_id = 4
     feedback1.project_id = 1
     db.session.add(feedback1)
     
     feedback2 = Feedback()
-    feedback2.text = 'Acceptable'
-    feedback2.user_id = 3
+    feedback2.text = 'Also Acceptable'
     feedback2.project_id = 1
     db.session.add(feedback2)
     
     feedback3 = Feedback()
     feedback3.text = 'Acceptable'
-    feedback3.user_id = 4
     feedback3.project_id = 3
     db.session.add(feedback3)
     
     feedback4 = Feedback()
-    feedback4.text = 'Acceptable'
-    feedback4.user_id = 2
+    feedback4.text = 'Unacceptable'
     feedback4.project_id = 3
     db.session.add(feedback4)
     
     feedback5 = Feedback()
     feedback5.text = 'Acceptable'
-    feedback5.user_id = 4
     feedback5.project_id = 4
     db.session.add(feedback5)
 

@@ -17,8 +17,3 @@ class User(db.Model, UserMixin):
         lazy="joined",
         cascade='all, delete-orphan'
     )
-    feedbacks =  db.relationship('Feedback',
-        backref='user',
-        lazy="joined",
-        cascade='all, delete-orphan'
-    )

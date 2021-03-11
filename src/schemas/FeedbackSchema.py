@@ -11,7 +11,6 @@ class FeedbackSchema(ma.SQLAlchemyAutoSchema):
     name = ma.String(required=True, validate=Length(min=1))
 
     project =  ma.Nested(ProjectSchema)
-    user =  ma.Nested(UserSchema)
 
 feedback_schema = FeedbackSchema()
 feedbacks_schema = FeedbackSchema(many=True)
