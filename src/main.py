@@ -20,7 +20,7 @@ def create_app():
     ma.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
-    login_manager.login_view = 'auth.login'
+    login_manager.login_view = 'auth.auth_login'
 
     from models.User import get_user
 

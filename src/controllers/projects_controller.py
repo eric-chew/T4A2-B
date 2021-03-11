@@ -47,10 +47,9 @@ def project_show_user():
     return jsonify(projects_schema.dump(projects))
 
 @projects.route('/<int:id>', methods=['DELETE'])
-# @login_required
+@login_required
 def project_delete(id):
-    # project = Project.query.filter_by(id=id, user_id=current_user.id).first()
-    
+    project = Project.query.filter_by(id=id, user_id=current_user.id).first()
     project = Project.query.filter_by(id=id, user_id=1).first()
     
     if not project:
@@ -59,7 +58,7 @@ def project_delete(id):
     db.session.delete(project)
     db.session.commit()
     
-    return jsonify(project_schema.dump(project))
+    return jsonify({'msg': 'Project Deleted'})
     
 @projects.route('/<int:id>', methods=['PUT', 'PATCH'])
 @login_required
@@ -72,6 +71,7 @@ def project_update(id):
     project.name = request.form.get('name')
     project.link = request.form.get('link')
     project.description = request.form.get('description')
-    project.user_id = current_user.id
+    
+    db.session.commit()
     
     return jsonify(project_schema.dump(project))

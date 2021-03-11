@@ -14,6 +14,9 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(), nullable=False)
     projects = db.relationship('Project', 
         backref='user',
-        lazy="joined",
-        cascade='all, delete-orphan'
+        cascade='all, delete'
+    )
+    feedbacks =  db.relationship('Feedback',
+        backref='user',
+        cascade='all, delete'
     )

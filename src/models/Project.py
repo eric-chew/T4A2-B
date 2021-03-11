@@ -13,6 +13,5 @@ class Project(db.Model):
     feedbacks = db.relationship(
         'Feedback',
         backref='project',
-        lazy="joined",
-        cascade='all, delete-orphan'
+        cascade='all, delete'
     )
