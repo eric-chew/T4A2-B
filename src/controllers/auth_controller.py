@@ -10,7 +10,7 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/', methods=['GET'])
 def main_page():
-    return redirect(url_for('project.projects_index'))
+    return redirect(url_for('projects.project_index'))
 
 
 @auth.route('/auth/register', methods=['POST'])

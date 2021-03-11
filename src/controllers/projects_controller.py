@@ -86,6 +86,7 @@ def project_update(id):
 
     db.session.commit()
 
+    flash('Project Updated')
     # return jsonify(project_schema.dump(project))
     return redirect(url_for('projects.project_show', id=id))
 

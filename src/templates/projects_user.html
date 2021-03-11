@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}Your Projects{% endblock %}
+
+{% block content %}
+    <h2>Projects</h2>          
+    {% for project in projects %}
+        <h3>{{project.name}}</h3>
+        <h4>Link: <a href='{{project.link}}'>{{project.link}}</a></h4>
+        <h4>Last Updated: {{project.last_updated.strftime('%Y-%m-%d %H:%M')}}</h4>
+        <h4>Description:</h4>
+        <h5>{{project.description}}</h5>
+        <a href="{{ url_for('projects.project_show', id=project.id) }}">See this Project</a>
+    {% endfor %}
+{% endblock %}

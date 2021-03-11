@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Give Feedback{% endblock %}
+
+{% block content %}
+    <div>
+        <h3>Give Feedback</h3>
+        <div>
+            <form action="{{ url_for('feedbacks.feedback_create') }}" method="POST">
+                <input type="text" name="text" placeholder="Text" autofocus="">
+                <button>Submit Feedback</button>
+            </form>
+            <a href="{{ url_for('projects.project_index') }}"><button>Back to Projects</button></a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,7 +1,7 @@
 from models.Feedback import Feedback
 from models.Project import Project
 from main import db
-from schemas.FeedbackSchema import feedback_schema
+from schemas.FeedbackSchema import feedback_schema, feedbacks_schema
 from flask import Blueprint, request, jsonify, render_template, abort, redirect, url_for, flash
 from flask_login import login_required, current_user
 
@@ -16,10 +16,12 @@ def feedback_create(id):
     feedback = Feedback.query.filter_by(user_id=current_user.id).first()
 
     if feedback:
-        return abort(400, description='Already given feedback in this project')
+        flash('Already given feedback in this project')
+        return redirect(url_for('feedbacks.feedback_show_project', id=id))
 
     if project.user_id == current_user.id:
-        return abort(400, description='Cannot give feedback on your own project')
+        flash('Cannot give feedback on your own project')
+        return redirect(url_for('feedbacks.feedback_show_project', id=id))
 
     new_feedback = Feedback()
     new_feedback.text = request.form.get('text')
@@ -29,40 +31,68 @@ def feedback_create(id):
     db.session.add(new_feedback)
     db.session.commit()
 
-    return jsonify(feedback_schema.dump(new_feedback))
+    # return jsonify(feedback_schema.dump(new_feedback))
+    return redirect(url_for('feedbacks.feedback_show_project', id=id))
 
 
 @feedbacks.route('/<int:id>', methods=['GET'])
 def feedback_show(id):
     feedback = Feedback.query.get(id)
 
-    return jsonify(feedback_schema.dump(feedback))
+    # return jsonify(feedback_schema.dump(feedback))
+    return render_template("feedback.html", feedback=feedback)
 
 
-@feedbacks.route('/<int:id>', methods=['DELETE'])
+@feedbacks.route('/project/<int:id>', methods=['GET'])
+def feedback_show_project(id):
+    feedbacks = Feedback.query.filter_by(project_id=id)
+    project = Project.query.get(id)
+
+    # return jsonify(feedbacks_schema.dump(feedback))
+    return render_template("feedback_index.html", feedbacks=feedbacks, project_name=project.name)
+
+
+# @feedbacks.route('/<int:id>', methods=['DELETE'])
+@feedbacks.route("/delete/<int:id>", methods=["GET"])
 @login_required
 def feedback_delete(id):
     feedback = Feedback.query.filter_by(id=id, user_id=current_user.id).first()
 
     if not feedback:
-        return abort(400, description='Unauthorised to delete this feedback')
+        flash('Unauthorised to delete this feedback')
+        return redirect(url_for('feedbacks.feedback_show', id=id))
+
+    project_id = feedback.project_id
 
     db.session.delete(feedback)
     db.session.commit()
 
-    return jsonify({'msg': 'Feedback Deleted'})
+    return redirect(url_for('feedbacks.feedback_show_project', id=project_id))
 
 
-@feedbacks.route('/<int:id>', methods=['PUT', 'PATCH'])
+# @feedbacks.route('/<int:id>', methods=['PUT', 'PATCH'])
+@feedbacks.route("/update/<int:id>", methods=["POST"])
 @login_required
 def feedback_update(id):
     feedback = Feedback.query.filter_by(id=id, user_id=current_user.id).first()
 
     if not feedback:
-        return abort(400, description='Unauthorised to update this feedback')
+        flash('Unauthorised to update this feedback')
+        return redirect(url_for('feedbacks.feedback_show', id=id))
 
     feedback.text = request.form.get('text')
 
     db.session.commit()
 
-    return jsonify(feedback_schema.dump(feedback))
+    return redirect(url_for('feedbacks.feedback_show', id=id))
+
+
+@feedbacks.route("/new", methods=["GET"])
+def new_feedback():
+    return render_template("new_feedback.html")
+
+
+@feedbacks.route("/revise/<int:id>", methods=["GET"])
+def revise_feedback(id):
+    feedback = Feedback.query.get(id)
+    return render_template("revise_feedback.html", feedback=feedback)
