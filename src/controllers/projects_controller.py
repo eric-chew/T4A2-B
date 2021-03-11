@@ -12,7 +12,8 @@ projects = Blueprint('projects', __name__, url_prefix='/projects')
 def project_index():
     projects = Project.query.all()
 
-    return jsonify(projects_schema.dump(projects))
+    # return jsonify(projects_schema.dump(projects))
+    return render_template("projects_index.html", projects=projects)
 
 
 @projects.route('/', methods=['POST'])
