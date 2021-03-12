@@ -28,14 +28,14 @@ class Config(object):
     #         raise ValueError('AWS_SECRET_ACCESS_KEY is not set')
     #     return value
 
-    @property
-    def SECRET_KEY(self):
-        value = os.environ.get('SECRET_KEY')
+    # @property
+    # def SECRET_KEY(self):
+    #     value = os.environ.get('SECRET_KEY')
 
-        if not value:
-            raise ValueError('SECRET_KEY is not set')
+    #     if not value:
+    #         raise ValueError('SECRET_KEY is not set')
 
-        return value
+    #     return value
 
 
 class DevelopmentConfig(Config):
@@ -52,14 +52,7 @@ class DevelopmentConfig(Config):
 
 
 class ProductionConfig(Config):
-    @property
-    def SECRET_KEY(self):
-        value = os.environ.get('SECRET_KEY')
-
-        if not value:
-            raise ValueError('SECRET_KEY is not set')
-
-        return value
+    pass
 
 
 class TestingConfig(Config):
