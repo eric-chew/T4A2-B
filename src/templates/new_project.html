@@ -1,17 +1,40 @@
 {% extends "layout.html" %}
-{% block title %}New Project{% endblock %}
 
 {% block content %}
-    <div>
-        <h3>Create Project</h3>
-        <div>
-            <form action="{{ url_for('projects.project_create') }}" method="POST">
-                <input type="text" name="name" placeholder="Name" autofocus="">
-                <input type="text" name="link" placeholder="Link">
-                <input type="text" name="description" placeholder="Description">
-                <button>Create Project</button>
-            </form>
-            <a href="{{ url_for('projects.project_show_user') }}"><button>Back to your Projects</button></a>
+    <div class="card text-center text-dark bg-light mb-3 border-dark mb-3">
+        <div class="card-body">
+            <h1 class="card-title">Create Project</h1>
         </div>
     </div>
+    {% if current_user.is_authenticated %}
+    <div>
+        <div>
+            <form action="{{ url_for('projects.project_create') }}" method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Project Name: </label>
+                    <input type='text' class="form-control" name='name' id='name' placeholder='Project Name' autofocus=''>
+                </div>
+                <div class="mb-3">
+                    <label for="link" class="form-label">Link: </label>
+                    <input type='text' class="form-control" name='link' id='link' placeholder='Link'>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description: </label>
+                    <textarea class="form-control" name='description' id='description' placeholder='Project Description...' rows='10'>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Project</button>
+                <a href="{{ url_for('projects.project_show_user') }}"><buttontype="button" class="btn btn-success">Back to your Projects</button></a>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <div class="card text-center text-dark bg-warning mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Please sign in to crate a Project</h5>
+            <a href="{{ url_for('auth.login') }}"><buttontype="button" class="btn btn-success">Log In</button></a>
+            <a href="{{ url_for('auth.signup') }}"><buttontype="button" class="btn btn-success">Sign Up</button></a>
+            <a href="{{ url_for('projects.project_index') }}"><buttontype="button" class="btn btn-success">Back to Projects</button></a>
+        </div>
+    </div>
+    {% endif %}
 {% endblock %}

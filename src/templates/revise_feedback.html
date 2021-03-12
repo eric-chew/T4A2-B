@@ -1,15 +1,32 @@
 {% extends 'layout.html' %}
-{% block title %}Update Feedback{% endblock %}
 
 {% block content %}
-    <div>
-        <h3>Update Feedback</h3>
-        <div>
-            <form action="{{ url_for('feedbacks.feedback_update, id=feedback.id') }}" method='POST'>
-                <input type='text' name='text' value='{{feedback.text}}' autofocus=''>
-                <button>Update Project</button>
-            </form>
-            <a href="{{ url_for('feedbacks.feedback_show_project', id=feedback.project_id) }}"><button>Back to Feedback</button></a>
+    <div class="card text-center text-dark bg-light mb-3 border-dark mb-3">
+        <div class="card-body">
+            <h1 class="card-title">Update Feedback</h1>
         </div>
     </div>
+    {% if current_user.is_authenticated %}
+    <div>
+        <div>
+            <form action="{{ url_for('feedbacks.feedback_update, id=feedback.id') }}" method='POST'>
+                <div class="mb-3">
+                    <label for="text" class="form-label">Feedback:</label>
+                    <textarea class="form-control" name='text' id='text' value='{{feedback.text}}' rows='12' autofocus=''>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Feedback</button>
+                <a href="{{ url_for('feedbacks.feedback_show_project', id=feedback.project_id) }}"><buttontype="button" class="btn btn-success">Back to Feedback</button></a>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <div class="card text-center text-dark bg-warning mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Please sign in to update Feedback</h5>
+            <a href="{{ url_for('auth.login') }}"><buttontype="button" class="btn btn-success">Log In</button></a>
+            <a href="{{ url_for('auth.signup') }}"><buttontype="button" class="btn btn-success">Sign Up</button></a>
+            <a href="{{ url_for('feedbacks.feedback_show_project', id=feedback.project_id) }}"><buttontype="button" class="btn btn-success">Back to Feedback</button></a>
+        </div>
+    </div>
+    {% endif %}
 {% endblock %}

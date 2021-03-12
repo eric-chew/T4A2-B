@@ -1,15 +1,33 @@
 {% extends "layout.html" %}
-{% block title %}Give Feedback{% endblock %}
 
 {% block content %}
-    <div>
-        <h3>Give Feedback</h3>
-        <div>
-            <form action="{{ url_for('feedbacks.feedback_create', id=id) }}" method="POST">
-                <input type="text" name="text" placeholder="Text" autofocus="">
-                <button>Submit Feedback</button>
-            </form>
-            <a href="{{ url_for('projects.project_index') }}"><button>Back to Projects</button></a>
+    <div class="card text-center text-dark bg-light mb-3 border-dark mb-3">
+        <div class="card-body">
+            <h1 class="card-title">Give Feedback</h1>
         </div>
     </div>
+    {% if current_user.is_authenticated %}
+    <div>
+        <div>
+            <form action="{{ url_for('feedbacks.feedback_create', id=id) }}" method="POST">
+                <div class="mb-3">
+                    <label for="text" class="form-label">Feedback: </label>
+                    <textarea class="form-control" name='text' id='text' placeholder='Feedback...' rows='12' autofocus=''></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                <a href="{{ url_for('projects.project_index') }}"><buttontype="button" class="btn btn-success">Back to Projects</button></a>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <div class="card text-center text-dark bg-warning mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Please sign in to give Feedback</h5>
+            <a href="{{ url_for('auth.login') }}"><buttontype="button" class="btn btn-success">Log In</button></a>
+            <a href="{{ url_for('auth.signup') }}"><buttontype="button" class="btn btn-success">Sign Up</button></a>
+            <a href="{{ url_for('projects.project_index') }}"><buttontype="button" class="btn btn-success">Back to Projects</button></a>
+        </div>
+    </div>
+    {% endif %}
+    
 {% endblock %}
