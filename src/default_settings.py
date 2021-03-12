@@ -13,20 +13,20 @@ class Config(object):
 
         return value
 
-    @property
-    def AWS_ACCESS_KEY_ID(self):
-        value = os.getenv('AWS_ACCESS_KEY_ID')
-        if not value:
-            raise ValueError('AWS_ACCESS_KEY_ID is not set')
-        return value
+    # @property
+    # def AWS_ACCESS_KEY_ID(self):
+    #     value = os.getenv('AWS_ACCESS_KEY_ID')
+    #     if not value:
+    #         raise ValueError('AWS_ACCESS_KEY_ID is not set')
+    #     return value
 
-    @property
-    def AWS_SECRET_ACCESS_KEY(self):
-        value = os.getenv('AWS_SECRET_ACCESS_KEY')
+    # @property
+    # def AWS_SECRET_ACCESS_KEY(self):
+    #     value = os.getenv('AWS_SECRET_ACCESS_KEY')
 
-        if not value:
-            raise ValueError('AWS_SECRET_ACCESS_KEY is not set')
-        return value
+    #     if not value:
+    #         raise ValueError('AWS_SECRET_ACCESS_KEY is not set')
+    #     return value
 
     @property
     def SECRET_KEY(self):
