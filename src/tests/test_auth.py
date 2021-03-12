@@ -15,19 +15,16 @@ class TestAuth(unittest.TestCase):
         runner = cls.app.test_cli_runner()
         runner.invoke(args=["db-custom", "seed"])
 
-
     @classmethod
     def tearDown(cls):
         db.session.remove()
         db.drop_all()
         cls.app_context.pop()
 
-
     def test_main(self):
         response = self.client.get('/', follow_redirects=True)
-        self.assertIn('T2A2-B', str(response.data))
+        self.assertIn('T4A2-B', str(response.data))
         self.assertEqual(response.status_code, 200)
-
 
     def test_sign_up(self):
         response = self.client.get('/signup', data={
@@ -36,7 +33,6 @@ class TestAuth(unittest.TestCase):
             'password': 'password'
         })
         self.assertEqual(response.status_code, 200)
-
 
     def test_login(self):
         response = self.client.get('/signup', data={
@@ -52,7 +48,6 @@ class TestAuth(unittest.TestCase):
         }, follow_redirects=True)
         self.assertEqual(response.status_code, 200)
 
-
     def test_login_invalid(self):
         response = self.client.get('/signup', data={
             'username': 'new_user3',
@@ -66,7 +61,6 @@ class TestAuth(unittest.TestCase):
             'password': 'incorrect_password'
         }, follow_redirects=True)
         self.assertEqual(response.status_code, 200)
-
 
     def test_log_out(self):
         response = self.client.get('/signup', data={
