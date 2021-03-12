@@ -4,7 +4,7 @@
     {% if feedback %}
         <div class="card text-center border-dark mb-3">
             <div class="card-header">
-                By {{feedback.user.username}}
+                Feedback from {{feedback.user.username}}
             </div>
             <div class="card-body">
                 <h5 class="card-title">{{feedback.project.name}}</h5>
@@ -14,6 +14,10 @@
             <div class="card-footer text-muted">
                 Last updated: {{feedback.last_updated.strftime('%Y-%m-%d %H:%M')}}
             </div>
+            {% if current_user.is_authenticated and current_user.id == feedback.user_id %}
+                <a href="{{ url_for('feedbacks.revise_feedback', id=feedback.id) }}" class="btn btn-success">Update Feedback</a>
+                <a href="{{ url_for('feedbacks.feedback_delete', id=feedback.id) }}" class="btn btn-danger">Delete Feedback</a>
+            {% endif %}
             <a href="{{ url_for('feedbacks.feedback_show_project', id=feedback.project_id) }}" class="btn btn-primary">More Feedback</a>
         </div>
     {% else %}

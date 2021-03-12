@@ -16,11 +16,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="link" class="form-label">Link: </label>
-                    <input type='text' class="form-control" name='link' id='link' placeholder='Link'>
+                    <input type='url' class="form-control" name='link' id='link' placeholder='Link'>
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Description: </label>
-                    <textarea class="form-control" name='description' id='description' placeholder='Project Description...' rows='10'>
+                    <textarea class="form-control" name='description' id='description' placeholder='Project Description...' rows='10'></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Create Project</button>
                 <a href="{{ url_for('projects.project_show_user') }}"><buttontype="button" class="btn btn-success">Back to your Projects</button></a>
@@ -30,7 +30,7 @@
     {% else %}
     <div class="card text-center text-dark bg-warning mb-3">
         <div class="card-body">
-            <h5 class="card-title">Please sign in to crate a Project</h5>
+            <h5 class="card-title">Please sign in to create a Project</h5>
             <a href="{{ url_for('auth.login') }}"><buttontype="button" class="btn btn-success">Log In</button></a>
             <a href="{{ url_for('auth.signup') }}"><buttontype="button" class="btn btn-success">Sign Up</button></a>
             <a href="{{ url_for('projects.project_index') }}"><buttontype="button" class="btn btn-success">Back to Projects</button></a>

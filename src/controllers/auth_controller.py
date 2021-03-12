@@ -51,7 +51,8 @@ def auth_login():
     user = User.query.filter_by(username=username).first()
 
     if not user or not bcrypt.check_password_hash(user.password, password):
-        return abort(401, description='Invalid Credentials')
+        flash('Invalid Credentials')
+        return redirect(url_for('auth.login'))
 
     login_user(user)
     # return jsonify(user_schema.dump(user))

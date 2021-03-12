@@ -71,7 +71,7 @@ def project_delete(id):
 
 
 # @projects.route('/<int:id>', methods=['PUT', 'PATCH'])
-@projects.route("/update/<int:id>", methods=['GET'])
+@projects.route("/update/<int:id>", methods=['POST'])
 @login_required
 def project_update(id):
     project = Project.query.filter_by(id=id, user_id=current_user.id).first()

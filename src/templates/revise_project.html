@@ -16,11 +16,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="link" class="form-label">Link: </label>
-                    <input type='text' class="form-control" name='link' id='link' value='{{project.link}}'>
+                    <input type='url' class="form-control" name='link' id='link' value='{{project.link}}'>
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Description: </label>
-                    <textarea class="form-control" name='description' id='description' value='{{project.description}}' rows='10' autofocus=''>
+                    <textarea class="form-control" name='description' id='description' rows='10'>{{project.description}}</textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Update Project</button>
                 <a href="{{ url_for('projects.project_show_user') }}"><buttontype="button" class="btn btn-success">Back to your Projects</button></a>

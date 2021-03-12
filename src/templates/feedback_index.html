@@ -9,7 +9,7 @@
     {% for feedback in feedbacks %}
         <div class="card text-center border-dark mb-3">
             <div class="card-header">
-                By {{feedback.user.username}}
+                Feedback from {{feedback.user.username}}
             </div>
             <div class="card-body">
                 <h5 class="card-title">{{feedback.project.name}}</h5>
@@ -22,4 +22,5 @@
         </div>
     {% endfor %}
     <a href="{{ url_for('feedbacks.new_feedback', id=project_id) }}" class="btn btn-primary">Give Feedback</a>
+    <a href="{{ url_for('projects.project_show', id=project_id) }}" class="btn btn-primary">Back to Project</a>
 {% endblock %}

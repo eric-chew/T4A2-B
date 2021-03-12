@@ -9,10 +9,10 @@
     {% if current_user.is_authenticated %}
     <div>
         <div>
-            <form action="{{ url_for('feedbacks.feedback_update, id=feedback.id') }}" method='POST'>
+            <form action="{{ url_for('feedbacks.feedback_update', id=feedback.id) }}" method='POST'>
                 <div class="mb-3">
                     <label for="text" class="form-label">Feedback:</label>
-                    <textarea class="form-control" name='text' id='text' value='{{feedback.text}}' rows='12' autofocus=''>
+                    <textarea class="form-control" name='text' id='text' rows='12'>{{feedback.text}}</textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Update Feedback</button>
                 <a href="{{ url_for('feedbacks.feedback_show_project', id=feedback.project_id) }}"><buttontype="button" class="btn btn-success">Back to Feedback</button></a>

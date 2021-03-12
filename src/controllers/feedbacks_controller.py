@@ -13,7 +13,7 @@ feedbacks = Blueprint('feedbacks', __name__, url_prefix='/feedback')
 def feedback_create(id):
     project = Project.query.filter_by(id=id).first()
 
-    feedback = Feedback.query.filter_by(user_id=current_user.id).first()
+    feedback = Feedback.query.filter_by(user_id=current_user.id, project_id=project.id).first()
 
     if feedback:
         flash('Already given feedback in this project')
@@ -31,6 +31,7 @@ def feedback_create(id):
     db.session.add(new_feedback)
     db.session.commit()
 
+    flash('Thank yo for your Feedback')
     # return jsonify(feedback_schema.dump(new_feedback))
     return redirect(url_for('feedbacks.feedback_show_project', id=id))
 
