@@ -1,7 +1,6 @@
 from models.Project import Project
 from main import db
-from schemas.ProjectSchema import project_schema, projects_schema
-from flask import Blueprint, request, jsonify, render_template, abort, redirect, url_for, flash
+from flask import Blueprint, request, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
 
 projects = Blueprint('projects', __name__, url_prefix='/projects')

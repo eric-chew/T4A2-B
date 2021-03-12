@@ -1,8 +1,7 @@
 from models.Feedback import Feedback
 from models.Project import Project
 from main import db
-from schemas.FeedbackSchema import feedback_schema, feedbacks_schema
-from flask import Blueprint, request, jsonify, render_template, abort, redirect, url_for, flash
+from flask import Blueprint, request, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
 
 feedbacks = Blueprint('feedbacks', __name__, url_prefix='/feedback')
@@ -13,7 +12,10 @@ feedbacks = Blueprint('feedbacks', __name__, url_prefix='/feedback')
 def feedback_create(id):
     project = Project.query.filter_by(id=id).first()
 
-    feedback = Feedback.query.filter_by(user_id=current_user.id, project_id=project.id).first()
+    feedback = Feedback.query.filter_by(
+        user_id=current_user.id,
+        project_id=project.id
+    ).first()
 
     if feedback:
         flash('Already given feedback in this project')
@@ -50,7 +52,12 @@ def feedback_show_project(id):
     project = Project.query.get(id)
 
     # return jsonify(feedbacks_schema.dump(feedback))
-    return render_template("feedback_index.html", feedbacks=feedbacks, project_name=project.name, project_id=id)
+    return render_template(
+        "feedback_index.html",
+        feedbacks=feedbacks,
+        project_name=project.name,
+        project_id=id
+    )
 
 
 # @feedbacks.route('/<int:id>', methods=['DELETE'])

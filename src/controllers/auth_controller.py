@@ -1,9 +1,8 @@
 from models.User import User
-from schemas.UserSchema import user_schema
 from main import db
-from flask import Blueprint, request, jsonify, abort, render_template, redirect, url_for, flash
+from flask import Blueprint, request, render_template, redirect, url_for, flash
 from main import bcrypt
-from flask_login import login_user, current_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required
 
 auth = Blueprint('auth', __name__)
 
