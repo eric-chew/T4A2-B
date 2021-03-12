@@ -33,7 +33,7 @@ def feedback_create(id):
     db.session.add(new_feedback)
     db.session.commit()
 
-    flash('Thank yo for your Feedback')
+    flash('Thank you for your Feedback')
     # return jsonify(feedback_schema.dump(new_feedback))
     return redirect(url_for('feedbacks.feedback_show_project', id=id))
 
@@ -75,6 +75,8 @@ def feedback_delete(id):
     db.session.delete(feedback)
     db.session.commit()
 
+    flash('Feedback Deleted')
+
     return redirect(url_for('feedbacks.feedback_show_project', id=project_id))
 
 
@@ -91,6 +93,8 @@ def feedback_update(id):
     feedback.text = request.form.get('text')
 
     db.session.commit()
+
+    flash('Feedback Updated')
 
     return redirect(url_for('feedbacks.feedback_show', id=id))
 
